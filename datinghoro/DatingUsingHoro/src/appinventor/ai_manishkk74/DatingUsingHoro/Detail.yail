@@ -1,0 +1,212 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_manishkk74.DatingUsingHoro.Detail Detail)
+(require <com.google.youngandroid.runtime>)
+
+(def (p$showDetails $input)  (set-and-coerce-property! 'Image1 'Picture (call-yail-primitive yail-alist-lookup (*list-for-runtime* "picture" (lexical-value $input) "") '(any list any)  "lookup in pairs") 'text)(set-and-coerce-property! 'lblName 'Text (call-yail-primitive yail-alist-lookup (*list-for-runtime* "name" (lexical-value $input) "") '(any list any)  "lookup in pairs") 'text)(set-and-coerce-property! 'lblAge 'Text (call-yail-primitive yail-alist-lookup (*list-for-runtime* "age" (lexical-value $input) "") '(any list any)  "lookup in pairs") 'text)(let ( ($push_value (call-component-method 'Web1 'JsonTextDecode (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_value" (lexical-value $input) "") '(any list any)  "lookup in pairs")) '(text)))  )   (set-and-coerce-property! 'lblGender 'Text (call-yail-primitive yail-alist-lookup (*list-for-runtime* "gender" (lexical-value $push_value) "") '(any list any)  "lookup in pairs") 'text) )(set-and-coerce-property! 'Label2 'Text (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* "detail_keys"  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) 'text)(set-and-coerce-property! 'Label5 'Text (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* (call-yail-primitive string-append (*list-for-runtime* "detail_" (call-yail-primitive get-start-value (*list-for-runtime* ) '() "get start value") ) '(text text ) "join")  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) 'text))
+;;; Detail
+
+(do-after-form-creation (set-and-coerce-property! 'Detail 'Title "Detail" 'text)
+)
+
+(define-event Detail Initialize()(set-this-form)
+    (if (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive yail-list-empty? (*list-for-runtime* (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* (call-yail-primitive string-append (*list-for-runtime* "detail_" (call-yail-primitive get-start-value (*list-for-runtime* ) '() "get start value") ) '(text text ) "join")  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) ) '(list) "is list empty?")) '(boolean) "not") (begin   ((get-var p$showDetails) (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* (call-yail-primitive string-append (*list-for-runtime* "detail_" (call-yail-primitive get-start-value (*list-for-runtime* ) '() "get start value") ) '(text text ) "join")  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)))) (begin   (set-and-coerce-property! 'Web1 'Url (call-yail-primitive string-append (*list-for-runtime* "http://world.mkgalaxy.com/push/push_search.php?module=4&push_id=" (call-yail-primitive get-start-value (*list-for-runtime* ) '() "get start value") ) '(text text ) "join") 'text)(call-component-method 'Web1 'Get (*list-for-runtime*) '()))))
+;;; VerticalArrangement1
+
+(add-component Detail VerticalArrangement VerticalArrangement1 
+(set-and-coerce-property! 'VerticalArrangement1 'Width -2 'number)
+
+)
+
+;;; HorizontalArrangement1
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement1 
+(set-and-coerce-property! 'HorizontalArrangement1 'Width -2 'number)
+
+)
+
+;;; VerticalArrangement2
+
+(add-component HorizontalArrangement1 VerticalArrangement VerticalArrangement2 
+)
+
+;;; Image1
+
+(add-component VerticalArrangement2 Image Image1 
+(set-and-coerce-property! 'Image1 'Width 100 'number)
+
+(set-and-coerce-property! 'Image1 'Height 100 'number)
+
+)
+
+;;; TableArrangement1
+
+(add-component HorizontalArrangement1 TableArrangement TableArrangement1 
+(set-and-coerce-property! 'TableArrangement1 'Rows 3 'number)
+
+(set-and-coerce-property! 'TableArrangement1 'Width -2 'number)
+
+)
+
+;;; Label1
+
+(add-component TableArrangement1 Label Label1 
+(set-and-coerce-property! 'Label1 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label1 'Text "Name: " 'text)
+
+(set-and-coerce-property! 'Label1 'Column 0 'number)
+
+(set-and-coerce-property! 'Label1 'Row 0 'number)
+
+)
+
+;;; Label3
+
+(add-component TableArrangement1 Label Label3 
+(set-and-coerce-property! 'Label3 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label3 'Text "Age: " 'text)
+
+(set-and-coerce-property! 'Label3 'Column 0 'number)
+
+(set-and-coerce-property! 'Label3 'Row 1 'number)
+
+)
+
+;;; Label4
+
+(add-component TableArrangement1 Label Label4 
+(set-and-coerce-property! 'Label4 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label4 'Text "Gender: " 'text)
+
+(set-and-coerce-property! 'Label4 'Column 0 'number)
+
+(set-and-coerce-property! 'Label4 'Row 2 'number)
+
+)
+
+;;; lblAge
+
+(add-component TableArrangement1 Label lblAge 
+(set-and-coerce-property! 'lblAge 'Column 1 'number)
+
+(set-and-coerce-property! 'lblAge 'Row 1 'number)
+
+)
+
+;;; lblGender
+
+(add-component TableArrangement1 Label lblGender 
+(set-and-coerce-property! 'lblGender 'Column 1 'number)
+
+(set-and-coerce-property! 'lblGender 'Row 2 'number)
+
+)
+
+;;; lblName
+
+(add-component TableArrangement1 Label lblName 
+(set-and-coerce-property! 'lblName 'Column 1 'number)
+
+(set-and-coerce-property! 'lblName 'Row 0 'number)
+
+(set-and-coerce-property! 'lblName 'Width -2 'number)
+
+)
+
+;;; HorizontalArrangement2
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement2 
+(set-and-coerce-property! 'HorizontalArrangement2 'Width -2 'number)
+
+)
+
+;;; btnFav
+
+(add-component HorizontalArrangement2 Button btnFav 
+(set-and-coerce-property! 'btnFav 'Text "Add To Fav" 'text)
+
+(set-and-coerce-property! 'btnFav 'Width -2 'number)
+
+)
+
+(define-event btnFav Click()(set-this-form)
+  (get-var *the-null-value*))
+;;; btnBlock
+
+(add-component HorizontalArrangement2 Button btnBlock 
+(set-and-coerce-property! 'btnBlock 'Text "Block" 'text)
+
+(set-and-coerce-property! 'btnBlock 'Width -2 'number)
+
+)
+
+(define-event btnBlock Click()(set-this-form)
+  (get-var *the-null-value*))
+;;; btnBack
+
+(add-component HorizontalArrangement2 Button btnBack 
+(set-and-coerce-property! 'btnBack 'Text "Back" 'text)
+
+(set-and-coerce-property! 'btnBack 'Width -2 'number)
+
+)
+
+(define-event btnBack Click()(set-this-form)
+    (call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen"))
+;;; TextBox1
+
+(add-component Detail TextBox TextBox1 
+(set-and-coerce-property! 'TextBox1 'Hint "Enter Message" 'text)
+
+(set-and-coerce-property! 'TextBox1 'Width -2 'number)
+
+(set-and-coerce-property! 'TextBox1 'Height 75 'number)
+
+)
+
+;;; Button1
+
+(add-component Detail Button Button1 
+(set-and-coerce-property! 'Button1 'Text "Send Message" 'text)
+
+(set-and-coerce-property! 'Button1 'Width -2 'number)
+
+)
+
+;;; Label2
+
+(add-component Detail Label Label2 
+(set-and-coerce-property! 'Label2 'Text "Text for Label2" 'text)
+
+)
+
+;;; Label5
+
+(add-component Detail Label Label5 
+(set-and-coerce-property! 'Label5 'Text "Text for Label5" 'text)
+
+)
+
+;;; Notifier1
+
+(add-component Detail Notifier Notifier1 
+)
+
+;;; Web1
+
+(add-component Detail Web Web1 
+)
+
+(define-event Web1 GotText($url $responseCode $responseType $responseContent)(set-this-form)
+    (let ( ($data (call-yail-primitive yail-list-get-item (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "data" (call-component-method 'Web1 'JsonTextDecode (*list-for-runtime* (lexical-value $responseContent)) '(text)) (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(any list any)  "lookup in pairs") 1) '(list number) "select list item"))  )   (call-component-method 'TinyDB1 'StoreValue (*list-for-runtime* (call-yail-primitive string-append (*list-for-runtime* "detail_" (call-yail-primitive get-start-value (*list-for-runtime* ) '() "get start value") ) '(text text ) "join")  (lexical-value $data)) '(text any))(let ( ($name (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* "detail_keys"  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)))  )   (call-yail-primitive yail-list-add-to-list! (*list-for-runtime* (lexical-value $name) (call-yail-primitive get-start-value (*list-for-runtime* ) '() "get start value") ) '(list any ) "add items to list")(call-component-method 'TinyDB1 'StoreValue (*list-for-runtime* "detail_keys"  (lexical-value $name)) '(text any)) )((get-var p$showDetails) (lexical-value $data)) ))
+;;; TinyDB1
+
+(add-component Detail TinyDB TinyDB1 
+)
+
+(init-runtime)

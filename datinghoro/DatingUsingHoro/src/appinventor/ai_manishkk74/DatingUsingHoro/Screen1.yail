@@ -1,0 +1,261 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_manishkk74.DatingUsingHoro.Screen1 Screen1)
+(require <com.google.youngandroid.runtime>)
+
+(def (p$enableSplashScreen )  (set-and-coerce-property! 'splashscreen 'Visible #t 'boolean)(set-and-coerce-property! 'contentscreen 'Visible #f 'boolean)(set-and-coerce-property! 'Screen1 'Scrollable #f 'boolean)(set-and-coerce-property! 'Clock1 'TimerEnabled #t 'boolean))
+(def (p$disableSplashScreen )  (set-and-coerce-property! 'splashscreen 'Visible #f 'boolean)(set-and-coerce-property! 'contentscreen 'Visible #t 'boolean)(set-and-coerce-property! 'Screen1 'Scrollable #t 'boolean)(set-and-coerce-property! 'Clock1 'TimerEnabled #f 'boolean))
+(def (p$checkLogin )  (if (call-yail-primitive > (*list-for-runtime* (call-yail-primitive yail-list-length (*list-for-runtime* (call-yail-primitive string-split (*list-for-runtime* (get-property 'WebViewer1 'CurrentPageTitle) "{") '(text text) "split") ) '(list) "length of list") 1) '(number number) ">") (begin   (call-component-method 'TinyDB1 'StoreValue (*list-for-runtime* "alct_user"  (call-component-method 'Web1 'JsonTextDecode (*list-for-runtime* (get-property 'WebViewer1 'CurrentPageTitle)) '(text))) '(text any))((get-var p$reset) ))))
+(def (p$getVal $key) (call-yail-primitive yail-alist-lookup (*list-for-runtime* (lexical-value $key) (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* "alct_user"  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) "") '(any list any)  "lookup in pairs"))
+(def (p$reset )  (if (call-yail-primitive yail-list-empty? (*list-for-runtime* (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* "alct_user"  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) ) '(list) "is list empty?") (begin   (set-and-coerce-property! 'WebArrangement 'Visible #t 'boolean)(set-and-coerce-property! 'Clock2 'TimerEnabled #t 'boolean)(set-and-coerce-property! 'MenuArrangement 'Visible #f 'boolean)) (begin   (set-and-coerce-property! 'splashscreen 'Visible #f 'boolean)(set-and-coerce-property! 'contentscreen 'Visible #t 'boolean)(set-and-coerce-property! 'WebArrangement 'Visible #f 'boolean)(set-and-coerce-property! 'Clock2 'TimerEnabled #f 'boolean)(set-and-coerce-property! 'MenuArrangement 'Visible #t 'boolean)(set-and-coerce-property! 'userName 'Text (call-yail-primitive string-append (*list-for-runtime* "Welcome " ((get-var p$getVal) "name") ) '(text text ) "join") 'text)(set-and-coerce-property! 'userImage 'Picture ((get-var p$getVal) "picture") 'text)(set-and-coerce-property! 'userFirstName 'Text ((get-var p$getVal) "given_name") 'text))))
+;;; Screen1
+
+(do-after-form-creation (set-and-coerce-property! 'Screen1 'AboutScreen "Astro Dating" 'text)
+ (set-and-coerce-property! 'Screen1 'ScreenOrientation "portrait" 'text)
+ (set-and-coerce-property! 'Screen1 'Title "Astro Dating" 'text)
+)
+
+(define-event Screen1 Initialize()(set-this-form)
+    ((get-var p$reset) )((get-var p$enableSplashScreen) ))
+;;; splashscreen
+
+(add-component Screen1 VerticalArrangement splashscreen 
+(set-and-coerce-property! 'splashscreen 'Width -2 'number)
+
+(set-and-coerce-property! 'splashscreen 'Height -2 'number)
+
+)
+
+;;; Canvas1
+
+(add-component splashscreen Canvas Canvas1 
+(set-and-coerce-property! 'Canvas1 'BackgroundImage "lovevsneed.jpg" 'text)
+
+(set-and-coerce-property! 'Canvas1 'Width -2 'number)
+
+(set-and-coerce-property! 'Canvas1 'Height -2 'number)
+
+)
+
+;;; contentscreen
+
+(add-component Screen1 VerticalArrangement contentscreen 
+(set-and-coerce-property! 'contentscreen 'Width -2 'number)
+
+)
+
+;;; WebArrangement
+
+(add-component contentscreen VerticalArrangement WebArrangement 
+(set-and-coerce-property! 'WebArrangement 'Width -2 'number)
+
+(set-and-coerce-property! 'WebArrangement 'Height -2 'number)
+
+)
+
+;;; WebViewer1
+
+(add-component WebArrangement WebViewer WebViewer1 
+(set-and-coerce-property! 'WebViewer1 'HomeUrl "http://world.mkgalaxy.com/api/googleauth/index.php" 'text)
+
+(set-and-coerce-property! 'WebViewer1 'Width -2 'number)
+
+(set-and-coerce-property! 'WebViewer1 'Height -2 'number)
+
+)
+
+;;; MenuArrangement
+
+(add-component contentscreen VerticalArrangement MenuArrangement 
+(set-and-coerce-property! 'MenuArrangement 'Width -2 'number)
+
+)
+
+;;; VerticalArrangement13
+
+(add-component MenuArrangement VerticalArrangement VerticalArrangement13 
+)
+
+;;; userName
+
+(add-component VerticalArrangement13 Label userName 
+(set-and-coerce-property! 'userName 'FontBold #t 'boolean)
+
+)
+
+;;; userLocation
+
+(add-component VerticalArrangement13 Label userLocation 
+)
+
+;;; HorizontalArrangement1
+
+(add-component MenuArrangement HorizontalArrangement HorizontalArrangement1 
+(set-and-coerce-property! 'HorizontalArrangement1 'Width -2 'number)
+
+)
+
+;;; arrName
+
+(add-component HorizontalArrangement1 VerticalArrangement arrName 
+(set-and-coerce-property! 'arrName 'AlignHorizontal 3 'number)
+
+(set-and-coerce-property! 'arrName 'Width -2 'number)
+
+)
+
+;;; userImage
+
+(add-component arrName Image userImage 
+(set-and-coerce-property! 'userImage 'Width 64 'number)
+
+(set-and-coerce-property! 'userImage 'Height 64 'number)
+
+)
+
+;;; userFirstName
+
+(add-component arrName Label userFirstName 
+(set-and-coerce-property! 'userFirstName 'FontSize 10 'number)
+
+)
+
+;;; arrLogout
+
+(add-component HorizontalArrangement1 VerticalArrangement arrLogout 
+(set-and-coerce-property! 'arrLogout 'AlignHorizontal 3 'number)
+
+(set-and-coerce-property! 'arrLogout 'Width -2 'number)
+
+)
+
+;;; btnLogout
+
+(add-component arrLogout Button btnLogout 
+(set-and-coerce-property! 'btnLogout 'Image "deletered.png" 'text)
+
+)
+
+(define-event btnLogout Click()(set-this-form)
+    (call-component-method 'TinyDB1 'ClearTag (*list-for-runtime* "alct_user") '(text))(call-component-method 'WebViewer1 'GoToUrl (*list-for-runtime* "http://world.mkgalaxy.com/api/googleauth/index.php?logout") '(text))((get-var p$reset) ))
+;;; Label6
+
+(add-component arrLogout Label Label6 
+(set-and-coerce-property! 'Label6 'FontSize 11 'number)
+
+(set-and-coerce-property! 'Label6 'Text "Logout" 'text)
+
+)
+
+;;; arrSettings
+
+(add-component HorizontalArrangement1 VerticalArrangement arrSettings 
+(set-and-coerce-property! 'arrSettings 'AlignHorizontal 3 'number)
+
+(set-and-coerce-property! 'arrSettings 'Width -2 'number)
+
+)
+
+;;; btnSettings
+
+(add-component arrSettings Button btnSettings 
+(set-and-coerce-property! 'btnSettings 'Image "settings.png" 'text)
+
+)
+
+(define-event btnSettings Click()(set-this-form)
+    (call-yail-primitive open-another-screen (*list-for-runtime* "Settings") '(text) "open another screen"))
+;;; Label7
+
+(add-component arrSettings Label Label7 
+(set-and-coerce-property! 'Label7 'FontSize 11 'number)
+
+(set-and-coerce-property! 'Label7 'Text "Settings" 'text)
+
+)
+
+;;; HorizontalArrangement2
+
+(add-component MenuArrangement HorizontalArrangement HorizontalArrangement2 
+(set-and-coerce-property! 'HorizontalArrangement2 'Width -2 'number)
+
+)
+
+;;; arrBrowse
+
+(add-component HorizontalArrangement2 VerticalArrangement arrBrowse 
+(set-and-coerce-property! 'arrBrowse 'AlignHorizontal 3 'number)
+
+(set-and-coerce-property! 'arrBrowse 'Width -2 'number)
+
+)
+
+;;; btnBrowse
+
+(add-component arrBrowse Button btnBrowse 
+(set-and-coerce-property! 'btnBrowse 'Image "file_explore.png" 'text)
+
+)
+
+(define-event btnBrowse Click()(set-this-form)
+    (call-yail-primitive open-another-screen (*list-for-runtime* "Browse") '(text) "open another screen"))
+;;; Label8
+
+(add-component arrBrowse Label Label8 
+(set-and-coerce-property! 'Label8 'FontSize 11 'number)
+
+(set-and-coerce-property! 'Label8 'Text "Browse" 'text)
+
+)
+
+;;; VerticalArrangement15
+
+(add-component HorizontalArrangement2 VerticalArrangement VerticalArrangement15 
+)
+
+;;; VerticalArrangement16
+
+(add-component HorizontalArrangement2 VerticalArrangement VerticalArrangement16 
+)
+
+;;; Clock1
+
+(add-component Screen1 Clock Clock1 
+(set-and-coerce-property! 'Clock1 'TimerInterval 5000 'number)
+
+)
+
+(define-event Clock1 Timer()(set-this-form)
+    ((get-var p$disableSplashScreen) ))
+;;; Clock2
+
+(add-component Screen1 Clock Clock2 
+)
+
+(define-event Clock2 Timer()(set-this-form)
+    ((get-var p$checkLogin) ))
+;;; TinyDB1
+
+(add-component Screen1 TinyDB TinyDB1 
+)
+
+;;; Notifier1
+
+(add-component Screen1 Notifier Notifier1 
+)
+
+;;; Web1
+
+(add-component Screen1 Web Web1 
+)
+
+;;; LocationSensor1
+
+(add-component Screen1 LocationSensor LocationSensor1 
+)
+
+(define-event LocationSensor1 LocationChanged($latitude $longitude $altitude)(set-this-form)
+    (call-component-method 'TinyDB1 'StoreValue (*list-for-runtime* "ac_location"  (call-yail-primitive make-yail-list (*list-for-runtime* (lexical-value $latitude) (lexical-value $longitude) ) '(any any ) "make a list")) '(text any))(if ((get-var p$getVal) "id") (begin   (set-and-coerce-property! 'Web1 'Url (call-yail-primitive string-append (*list-for-runtime* "http://world.mkgalaxy.com/alamedacounty/current_location/update.php?latitude=" (lexical-value $latitude) "&longitude=" (lexical-value $longitude) "&uid=" ((get-var p$getVal) "id") "&accuracy=" (get-property 'LocationSensor1 'Accuracy) "&altitude=" (lexical-value $altitude) "&address=" (call-component-method 'Web1 'UriEncode (*list-for-runtime* (get-property 'LocationSensor1 'CurrentAddress)) '(text)) ) '(text text text text text text text text text text text text ) "join") 'text)(call-component-method 'Web1 'Get (*list-for-runtime*) '()))))
+(init-runtime)

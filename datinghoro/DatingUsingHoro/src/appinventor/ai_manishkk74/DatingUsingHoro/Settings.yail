@@ -1,0 +1,408 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_manishkk74.DatingUsingHoro.Settings Settings)
+(require <com.google.youngandroid.runtime>)
+
+(def g$module_id 4)
+(def g$birthPlace (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def g$locations (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def g$settings (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def (p$getData $inputData)  (let ( ($name (call-component-method 'WebGetServerDetails 'JsonTextDecode (*list-for-runtime* (lexical-value $inputData)) '(text)))  )   (if (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive yail-list-empty? (*list-for-runtime* (lexical-value $name) ) '(list) "is list empty?")) '(boolean) "not") (begin   (if (call-yail-primitive yail-equal? (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "success" (lexical-value $name) "") '(any list any)  "lookup in pairs") 1) '(any any) "=") (begin   (if (call-yail-primitive > (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "total" (lexical-value $name) (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(any list any)  "lookup in pairs") 0) '(number number) ">") (begin   (set-and-coerce-property! 'lblPushID 'Text (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_id" (call-yail-primitive yail-list-get-item (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "data" (lexical-value $name) (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(any list any)  "lookup in pairs") 1) '(list number) "select list item") "") '(any list any)  "lookup in pairs") 'text)(let ( ($data (call-component-method 'WebGetServerDetails 'JsonTextDecode (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_value" (call-yail-primitive yail-list-get-item (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "data" (lexical-value $name) (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(any list any)  "lookup in pairs") 1) '(list number) "select list item") "") '(any list any)  "lookup in pairs")) '(text)))  )   (set-var! g$settings (call-yail-primitive make-yail-list (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "dob" (lexical-value $data) "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "tob" (lexical-value $data) "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "birthPlace" (lexical-value $data) "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "lat" (call-yail-primitive yail-list-get-item (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "data" (lexical-value $name) (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(any list any)  "lookup in pairs") 1) '(list number) "select list item") "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "lon" (call-yail-primitive yail-list-get-item (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "data" (lexical-value $name) (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(any list any)  "lookup in pairs") 1) '(list number) "select list item") "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "gender" (lexical-value $data) "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "male" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "looking_for" (lexical-value $data) "") '(any list any)  "lookup in pairs") "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "female" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "looking_for" (lexical-value $data) "") '(any list any)  "lookup in pairs") "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "radius" (lexical-value $data) "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "fromage" (lexical-value $data) "") '(any list any)  "lookup in pairs") (call-yail-primitive yail-alist-lookup (*list-for-runtime* "toage" (lexical-value $data) "") '(any list any)  "lookup in pairs") ) '(any any any any any any any any any any any ) "make a list"))(call-component-method 'TinyDB1 'StoreValue (*list-for-runtime* "settings"  (get-var g$settings)) '(text any))((get-var p$prefillForm) (get-var g$settings)) )))) (begin   (call-component-method 'Notifier1 'ShowAlert (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "msg" (lexical-value $name) "") '(any list any)  "lookup in pairs")) '(text))))) (begin   (call-component-method 'Notifier1 'ShowAlert (*list-for-runtime* "Could not retrieve the record. Please contact admin.") '(text)))) ))
+(def (p$prefillForm $record)  (if (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive yail-list-empty? (*list-for-runtime* (lexical-value $record) ) '(list) "is list empty?")) '(boolean) "not") (begin   (set-and-coerce-property! 'lblDob 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 1) '(list number) "select list item") 'text)(set-and-coerce-property! 'lblTime 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 2) '(list number) "select list item") 'text)(set-and-coerce-property! 'lblPlace 'Text (call-yail-primitive yail-alist-lookup (*list-for-runtime* "location" (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 3) '(list number) "select list item") "") '(any list any)  "lookup in pairs") 'text)(set-var! g$birthPlace (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 3) '(list number) "select list item"))(set-and-coerce-property! 'lblLat 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 4) '(list number) "select list item") 'text)(set-and-coerce-property! 'lblLon 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 5) '(list number) "select list item") 'text)(if (call-yail-primitive yail-equal? (*list-for-runtime* (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 6) '(list number) "select list item") "Male") '(any any) "=") (begin   (set-and-coerce-property! 'chkMale 'Checked #t 'boolean)) (begin (if (call-yail-primitive yail-equal? (*list-for-runtime* (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 6) '(list number) "select list item") "Female") '(any any) "=") (begin   (set-and-coerce-property! 'chkFemale 'Checked #t 'boolean)) (begin   (set-and-coerce-property! 'chkMale 'Checked #t 'boolean)))))(set-and-coerce-property! 'chkMale2 'Checked (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 7) '(list number) "select list item") 'boolean)(set-and-coerce-property! 'chkFemale2 'Checked (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 8) '(list number) "select list item") 'boolean)(set-and-coerce-property! 'txtRadius 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 9) '(list number) "select list item") 'text)(set-and-coerce-property! 'fromage 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 10) '(list number) "select list item") 'text)(set-and-coerce-property! 'toage 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $record) 11) '(list number) "select list item") 'text))))
+;;; Settings
+
+(do-after-form-creation (set-and-coerce-property! 'Settings 'AboutScreen "Settings" 'text)
+ (set-and-coerce-property! 'Settings 'ScreenOrientation "portrait" 'text)
+ (set-and-coerce-property! 'Settings 'Title "Settings" 'text)
+)
+
+(define-event Settings Initialize()(set-this-form)
+    (set-and-coerce-property! 'Clock1 'TimerEnabled #t 'boolean)(set-and-coerce-property! 'WebGetServerDetails 'Url (call-yail-primitive string-append (*list-for-runtime* "http://world.mkgalaxy.com/push/push_search.php?module=" (get-var g$module_id) "&uid=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "id" (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* "alct_user"  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) "") '(any list any)  "lookup in pairs") ) '(text text text text ) "join") 'text)(call-component-method 'WebGetServerDetails 'Get (*list-for-runtime*) '()))
+;;; VerticalArrangement1
+
+(add-component Settings VerticalArrangement VerticalArrangement1 
+(set-and-coerce-property! 'VerticalArrangement1 'Width -2 'number)
+
+)
+
+;;; Label4
+
+(add-component VerticalArrangement1 Label Label4 
+(set-and-coerce-property! 'Label4 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label4 'Text "Gender" 'text)
+
+)
+
+;;; HorizontalArrangement5
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement5 
+(set-and-coerce-property! 'HorizontalArrangement5 'Width -2 'number)
+
+)
+
+;;; chkMale
+
+(add-component HorizontalArrangement5 CheckBox chkMale 
+(set-and-coerce-property! 'chkMale 'Text "Male" 'text)
+
+)
+
+(define-event chkMale Changed()(set-this-form)
+    (if (call-yail-primitive yail-equal? (*list-for-runtime* (get-property 'chkMale 'Checked) #t) '(any any) "=") (begin   (set-and-coerce-property! 'chkFemale 'Checked #f 'boolean)) (begin   (set-and-coerce-property! 'chkFemale 'Checked #t 'boolean))))
+;;; chkFemale
+
+(add-component HorizontalArrangement5 CheckBox chkFemale 
+(set-and-coerce-property! 'chkFemale 'Text "Female" 'text)
+
+)
+
+(define-event chkFemale Changed()(set-this-form)
+    (if (call-yail-primitive yail-equal? (*list-for-runtime* (get-property 'chkFemale 'Checked) #t) '(any any) "=") (begin   (set-and-coerce-property! 'chkMale 'Checked #f 'boolean)) (begin   (set-and-coerce-property! 'chkMale 'Checked #t 'boolean))))
+;;; Label6
+
+(add-component VerticalArrangement1 Label Label6 
+(set-and-coerce-property! 'Label6 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label6 'Text "Looking For" 'text)
+
+)
+
+;;; HorizontalArrangement7
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement7 
+(set-and-coerce-property! 'HorizontalArrangement7 'Width -2 'number)
+
+)
+
+;;; chkMale2
+
+(add-component HorizontalArrangement7 CheckBox chkMale2 
+(set-and-coerce-property! 'chkMale2 'Text "Male" 'text)
+
+)
+
+;;; chkFemale2
+
+(add-component HorizontalArrangement7 CheckBox chkFemale2 
+(set-and-coerce-property! 'chkFemale2 'Text "Female" 'text)
+
+)
+
+;;; Label8
+
+(add-component VerticalArrangement1 Label Label8 
+(set-and-coerce-property! 'Label8 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label8 'Text "Looking For Age:" 'text)
+
+)
+
+;;; HorizontalArrangement9
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement9 
+(set-and-coerce-property! 'HorizontalArrangement9 'Width -2 'number)
+
+)
+
+;;; Label9
+
+(add-component HorizontalArrangement9 Label Label9 
+(set-and-coerce-property! 'Label9 'Text "From Age:" 'text)
+
+(set-and-coerce-property! 'Label9 'Width 60 'number)
+
+)
+
+;;; fromage
+
+(add-component HorizontalArrangement9 TextBox fromage 
+(set-and-coerce-property! 'fromage 'Hint "From Age" 'text)
+
+(set-and-coerce-property! 'fromage 'Width -2 'number)
+
+)
+
+;;; Label10
+
+(add-component HorizontalArrangement9 Label Label10 
+(set-and-coerce-property! 'Label10 'Text "To Age:" 'text)
+
+(set-and-coerce-property! 'Label10 'Width 50 'number)
+
+)
+
+;;; toage
+
+(add-component HorizontalArrangement9 TextBox toage 
+(set-and-coerce-property! 'toage 'Hint "Enter To Age" 'text)
+
+(set-and-coerce-property! 'toage 'Width -2 'number)
+
+)
+
+;;; HorizontalArrangement1
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement1 
+(set-and-coerce-property! 'HorizontalArrangement1 'Width -2 'number)
+
+)
+
+;;; Label1
+
+(add-component HorizontalArrangement1 Label Label1 
+(set-and-coerce-property! 'Label1 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label1 'Text "Your Date of Birth: " 'text)
+
+)
+
+;;; lblDob
+
+(add-component HorizontalArrangement1 Label lblDob 
+)
+
+;;; DatePicker1
+
+(add-component VerticalArrangement1 DatePicker DatePicker1 
+(set-and-coerce-property! 'DatePicker1 'Text "Choose Your Birth Date" 'text)
+
+(set-and-coerce-property! 'DatePicker1 'Width -2 'number)
+
+)
+
+(define-event DatePicker1 AfterDateSet()(set-this-form)
+    (set-and-coerce-property! 'lblDob 'Text (call-yail-primitive string-append (*list-for-runtime* (get-property 'DatePicker1 'Year) "-" (call-yail-primitive + (*list-for-runtime* (get-property 'DatePicker1 'Month) 1 ) '(number number ) "+") "-" (get-property 'DatePicker1 'Day) ) '(text text text text text ) "join") 'text))
+;;; HorizontalArrangement2
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement2 
+(set-and-coerce-property! 'HorizontalArrangement2 'Width -2 'number)
+
+)
+
+;;; Label2
+
+(add-component HorizontalArrangement2 Label Label2 
+(set-and-coerce-property! 'Label2 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label2 'Text "Your Time of Birth: " 'text)
+
+)
+
+;;; lblTime
+
+(add-component HorizontalArrangement2 Label lblTime 
+)
+
+;;; TimePicker1
+
+(add-component VerticalArrangement1 TimePicker TimePicker1 
+(set-and-coerce-property! 'TimePicker1 'Text "Choose Your Birth Time" 'text)
+
+(set-and-coerce-property! 'TimePicker1 'Width -2 'number)
+
+)
+
+(define-event TimePicker1 AfterTimeSet()(set-this-form)
+    (set-and-coerce-property! 'lblTime 'Text (call-yail-primitive string-append (*list-for-runtime* (get-property 'TimePicker1 'Hour) ":" (get-property 'TimePicker1 'Minute) ) '(text text text ) "join") 'text))
+;;; Label3
+
+(add-component VerticalArrangement1 Label Label3 
+(set-and-coerce-property! 'Label3 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label3 'Text "Your Place of Birth" 'text)
+
+)
+
+;;; HorizontalArrangement3
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement3 
+(set-and-coerce-property! 'HorizontalArrangement3 'Width -2 'number)
+
+)
+
+;;; TextBox1
+
+(add-component HorizontalArrangement3 TextBox TextBox1 
+(set-and-coerce-property! 'TextBox1 'Hint "Enter Birth City" 'text)
+
+(set-and-coerce-property! 'TextBox1 'Width -2 'number)
+
+)
+
+;;; btnSearchCity
+
+(add-component HorizontalArrangement3 Button btnSearchCity 
+(set-and-coerce-property! 'btnSearchCity 'Text "Search" 'text)
+
+)
+
+(define-event btnSearchCity Click()(set-this-form)
+    (if (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive string-empty? (*list-for-runtime* (get-property 'TextBox1 'Text)) '(text) "is text empty?")) '(boolean) "not") (begin   (set-and-coerce-property! 'Web1 'Url (call-yail-primitive string-append (*list-for-runtime* "http://horo.mkgalaxy.com/api/fetchcitymore?q=" (call-component-method 'Web1 'UriEncode (*list-for-runtime* (get-property 'TextBox1 'Text)) '(text)) ) '(text text ) "join") 'text)(call-component-method 'Web1 'Get (*list-for-runtime*) '()))))
+;;; lstPlace
+
+(add-component HorizontalArrangement3 ListPicker lstPlace 
+(set-and-coerce-property! 'lstPlace 'Text "Place" 'text)
+
+(set-and-coerce-property! 'lstPlace 'Visible #f 'boolean)
+
+)
+
+(define-event lstPlace AfterPicking()(set-this-form)
+    (set-and-coerce-property! 'Web2 'Url (call-yail-primitive string-append (*list-for-runtime* "http://horo.mkgalaxy.com/api/fetchcitymore?q=" (call-component-method 'Web1 'UriEncode (*list-for-runtime* (get-property 'TextBox1 'Text)) '(text)) "&geonameId=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "geonameId" (call-yail-primitive yail-list-get-item (*list-for-runtime* (get-var g$locations) (get-property 'lstPlace 'SelectionIndex)) '(list number) "select list item") "") '(any list any)  "lookup in pairs") ) '(text text text text ) "join") 'text)(call-component-method 'Web2 'Get (*list-for-runtime*) '()))
+;;; HorizontalArrangement4
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement4 
+(set-and-coerce-property! 'HorizontalArrangement4 'Width -2 'number)
+
+)
+
+;;; lblPlace
+
+(add-component HorizontalArrangement4 Label lblPlace 
+)
+
+;;; lblGeonameId
+
+(add-component HorizontalArrangement4 Label lblGeonameId 
+)
+
+;;; Label5
+
+(add-component VerticalArrangement1 Label Label5 
+(set-and-coerce-property! 'Label5 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'Label5 'Text "Radius (in mi, People near me): " 'text)
+
+)
+
+;;; txtRadius
+
+(add-component VerticalArrangement1 TextBox txtRadius 
+(set-and-coerce-property! 'txtRadius 'Hint "Enter Radius" 'text)
+
+(set-and-coerce-property! 'txtRadius 'NumbersOnly #t 'boolean)
+
+(set-and-coerce-property! 'txtRadius 'Width -2 'number)
+
+)
+
+;;; Label7
+
+(add-component VerticalArrangement1 Label Label7 
+(set-and-coerce-property! 'Label7 'Text "Text for Label7" 'text)
+
+)
+
+;;; HorizontalArrangement8
+
+(add-component VerticalArrangement1 HorizontalArrangement HorizontalArrangement8 
+(set-and-coerce-property! 'HorizontalArrangement8 'Width -2 'number)
+
+)
+
+;;; btnSave
+
+(add-component HorizontalArrangement8 Button btnSave 
+(set-and-coerce-property! 'btnSave 'Text "Save" 'text)
+
+(set-and-coerce-property! 'btnSave 'Width -2 'number)
+
+)
+
+(define-event btnSave Click()(set-this-form)
+    (let ( ($gender "")  )   (if (call-yail-primitive yail-equal? (*list-for-runtime* (get-property 'chkMale 'Checked) #t) '(any any) "=") (begin   (set-lexical! $gender "Male")) (begin (if (call-yail-primitive yail-equal? (*list-for-runtime* (get-property 'chkFemale 'Checked) #t) '(any any) "=") (begin   (set-lexical! $gender "Female")) (begin   (set-lexical! $gender "Male")))))(set-var! g$settings (call-yail-primitive make-yail-list (*list-for-runtime* (get-property 'lblDob 'Text) (get-property 'lblTime 'Text) (get-var g$birthPlace) (get-property 'lblLat 'Text) (get-property 'lblLon 'Text) (lexical-value $gender) (get-property 'chkMale2 'Checked) (get-property 'chkFemale2 'Checked) (get-property 'txtRadius 'Text) (get-property 'fromage 'Text) (get-property 'toage 'Text) ) '(any any any any any any any any any any any ) "make a list"))(call-component-method 'TinyDB1 'StoreValue (*list-for-runtime* "settings"  (get-var g$settings)) '(text any))(let ( ($url "") ($postVal "")  )   (if (and-delayed (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive string-empty? (*list-for-runtime* (get-property 'lblPushID 'Text)) '(text) "is text empty?")) '(boolean) "not") (call-yail-primitive yail-not-equal? (*list-for-runtime* (get-property 'lblPushID 'Text) "null") '(any any) "=")) (begin   (set-lexical! $url (call-yail-primitive string-append (*list-for-runtime* "http://world.mkgalaxy.com/push/push_edit.php?push_id=" (get-property 'lblPushID 'Text) ) '(text text ) "join"))) (begin   (set-lexical! $url "http://world.mkgalaxy.com/push/push_new.php")))(set-lexical! $postVal "")(set-lexical! $postVal (call-yail-primitive string-append (*list-for-runtime* (lexical-value $postVal) "MM_insert=form1&module=" (get-var g$module_id) "&uid=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "id" (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* "alct_user"  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) "") '(any list any)  "lookup in pairs") ) '(text text text text text ) "join"))(set-lexical! $postVal (call-yail-primitive string-append (*list-for-runtime* (lexical-value $postVal) "&push_value[dob]=" (get-property 'lblDob 'Text) "&push_value[tob]=" (get-property 'lblTime 'Text) ) '(text text text text text ) "join"))(set-lexical! $postVal (call-yail-primitive string-append (*list-for-runtime* (lexical-value $postVal) "&lat=" (get-property 'lblLat 'Text) "&lon=" (get-property 'lblLon 'Text) ) '(text text text text text ) "join"))(set-lexical! $postVal (call-yail-primitive string-append (*list-for-runtime* (lexical-value $postVal) "&push_value[gender]=" (lexical-value $gender) "&push_value[radius]=" (get-property 'txtRadius 'Text) "&push_value[looking_for][male]=" (get-property 'chkMale2 'Checked) "&push_value[looking_for][female]=" (get-property 'chkFemale2 'Checked) "&push_value[fromage]=" (get-property 'fromage 'Text) "&push_value[toage]=" (get-property 'toage 'Text) ) '(text text text text text text text text text text text text text ) "join"))(set-lexical! $postVal (call-yail-primitive string-append (*list-for-runtime* (lexical-value $postVal) "&push_value[birthPlace][lat]=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "lat" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs") "&push_value[birthPlace][lon]=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "lon" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs") "&push_value[birthPlace][location]=" (call-component-method 'WebPostServerDetails 'UriEncode (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "location" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs")) '(text)) "&push_value[birthPlace][geonameId]=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "geonameId" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs") "&push_value[birthPlace][rawOffset]=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "rawOffset" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs") "&push_value[birthPlace][dstOffset]=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "dstOffset" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs") "&push_value[birthPlace][gmtOffset]=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "gmtOffset" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs") ) '(text text text text text text text text text text text text text text text ) "join"))(set-lexical! $postVal (call-yail-primitive string-append (*list-for-runtime* (lexical-value $postVal) "&push_details[my_gender]=" (lexical-value $gender) "&push_details[looking_for_male]=" (get-property 'chkMale2 'Checked) "&push_details[looking_for_female]=" (get-property 'chkFemale2 'Checked) "&push_details[age]=" (call-yail-primitive - (*list-for-runtime* (call-component-method 'ClockCurrent 'Year (*list-for-runtime* (call-component-method 'ClockCurrent 'Now (*list-for-runtime*) '())) '(InstantInTime)) (call-yail-primitive yail-list-get-item (*list-for-runtime* (call-yail-primitive string-split (*list-for-runtime* (get-property 'lblDob 'Text) "-") '(text text) "split") 1) '(list number) "select list item")) '(number number) "-") ) '(text text text text text text text text text ) "join"))(set-and-coerce-property! 'WebPostServerDetails 'Url (lexical-value $url) 'text)(call-component-method 'WebPostServerDetails 'PostText (*list-for-runtime* (lexical-value $postVal)) '(text)) ) ))
+;;; btnCancel
+
+(add-component HorizontalArrangement8 Button btnCancel 
+(set-and-coerce-property! 'btnCancel 'Text "Cancel" 'text)
+
+(set-and-coerce-property! 'btnCancel 'Width -2 'number)
+
+)
+
+(define-event btnCancel Click()(set-this-form)
+    (call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen"))
+;;; lblLat
+
+(add-component VerticalArrangement1 Label lblLat 
+(set-and-coerce-property! 'lblLat 'Visible #f 'boolean)
+
+)
+
+;;; lblLon
+
+(add-component VerticalArrangement1 Label lblLon 
+(set-and-coerce-property! 'lblLon 'Visible #f 'boolean)
+
+)
+
+;;; lblPushID
+
+(add-component VerticalArrangement1 Label lblPushID 
+)
+
+;;; WebViewer1
+
+(add-component Settings WebViewer WebViewer1 
+(set-and-coerce-property! 'WebViewer1 'HomeUrl "http://world.mkgalaxy.com/api/maps/getLocationSingle.html" 'text)
+
+(set-and-coerce-property! 'WebViewer1 'PromptforPermission #f 'boolean)
+
+(set-and-coerce-property! 'WebViewer1 'UsesLocation #t 'boolean)
+
+)
+
+;;; TinyDB1
+
+(add-component Settings TinyDB TinyDB1 
+)
+
+;;; Web1
+
+(add-component Settings Web Web1 
+)
+
+(define-event Web1 GotText($url $responseCode $responseType $responseContent)(set-this-form)
+    (let ( ($name (call-component-method 'Web1 'JsonTextDecode (*list-for-runtime* (lexical-value $responseContent)) '(text))) ($list (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))  )   (if (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive yail-list-empty? (*list-for-runtime* (lexical-value $name) ) '(list) "is list empty?")) '(boolean) "not") (begin   (foreach $item (begin   (call-yail-primitive yail-list-add-to-list! (*list-for-runtime* (lexical-value $list) (call-yail-primitive yail-alist-lookup (*list-for-runtime* "location" (lexical-value $item) "") '(any list any)  "lookup in pairs") ) '(list any ) "add items to list")) (lexical-value $name))(set-var! g$locations (lexical-value $name))(set-and-coerce-property! 'lstPlace 'Elements (lexical-value $list) 'list)(set-and-coerce-property! 'lstPlace 'Visible #t 'boolean)(call-component-method 'lstPlace 'Open (*list-for-runtime*) '())) (begin   (call-component-method 'Notifier1 'ShowAlert (*list-for-runtime* "No Place Found. Please try with some other city name.") '(text)))) ))
+;;; Web2
+
+(add-component Settings Web Web2 
+)
+
+(define-event Web2 GotText($url $responseCode $responseType $responseContent)(set-this-form)
+    (set-var! g$birthPlace (call-component-method 'Web2 'JsonTextDecode (*list-for-runtime* (lexical-value $responseContent)) '(text)))(set-and-coerce-property! 'lblPlace 'Text (call-yail-primitive yail-alist-lookup (*list-for-runtime* "location" (get-var g$birthPlace) "") '(any list any)  "lookup in pairs") 'text))
+;;; Notifier1
+
+(add-component Settings Notifier Notifier1 
+)
+
+;;; Clock1
+
+(add-component Settings Clock Clock1 
+)
+
+(define-event Clock1 Timer()(set-this-form)
+    (if (call-yail-primitive yail-not-equal? (*list-for-runtime* (get-property 'WebViewer1 'CurrentPageTitle) "Map") '(any any) "=") (begin   (let ( ($name (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))  )   (set-lexical! $name (call-yail-primitive string-split (*list-for-runtime* (get-property 'WebViewer1 'CurrentPageTitle) "|") '(text text) "split"))(set-and-coerce-property! 'lblLat 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $name) 1) '(list number) "select list item") 'text)(set-and-coerce-property! 'lblLon 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $name) 2) '(list number) "select list item") 'text) )(set-and-coerce-property! 'Clock1 'TimerEnabled #f 'boolean))))
+;;; WebGetServerDetails
+
+(add-component Settings Web WebGetServerDetails 
+)
+
+(define-event WebGetServerDetails GotText($url $responseCode $responseType $responseContent)(set-this-form)
+    ((get-var p$getData) (lexical-value $responseContent)))
+;;; WebPostServerDetails
+
+(add-component Settings Web WebPostServerDetails 
+)
+
+(define-event WebPostServerDetails GotText($url $responseCode $responseType $responseContent)(set-this-form)
+    (let ( ($name (call-component-method 'WebGetServerDetails 'JsonTextDecode (*list-for-runtime* (lexical-value $responseContent)) '(text)))  )   (if (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive yail-list-empty? (*list-for-runtime* (lexical-value $name) ) '(list) "is list empty?")) '(boolean) "not") (begin   (if (call-yail-primitive yail-equal? (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "success" (lexical-value $name) "") '(any list any)  "lookup in pairs") 1) '(any any) "=") (begin   (call-component-method 'Notifier1 'ShowAlert (*list-for-runtime* "Settings Updated Successfully.") '(text))(call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen")) (begin   (call-component-method 'Notifier1 'ShowAlert (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "msg" (lexical-value $name) "") '(any list any)  "lookup in pairs")) '(text))))) (begin   (call-component-method 'Notifier1 'ShowAlert (*list-for-runtime* "Could not retrieve the record. Please contact admin.") '(text)))) ))
+;;; ClockCurrent
+
+(add-component Settings Clock ClockCurrent 
+)
+
+(init-runtime)

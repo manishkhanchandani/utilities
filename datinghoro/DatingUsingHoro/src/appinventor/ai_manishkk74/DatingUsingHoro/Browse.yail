@@ -1,0 +1,237 @@
+#|
+$Source $Yail
+|#
+
+(define-form appinventor.ai_manishkk74.DatingUsingHoro.Browse Browse)
+(require <com.google.youngandroid.runtime>)
+
+(def (p$fetch )  (if (call-yail-primitive yail-not (*list-for-runtime* (call-yail-primitive string-empty? (*list-for-runtime* (get-property 'lat 'Text)) '(text) "is text empty?")) '(boolean) "not") (begin   (set-var! g$url (call-yail-primitive string-append (*list-for-runtime* "http://world.mkgalaxy.com/push/push_search.php?module=4&id=" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "id" (call-component-method 'TinyDB1 'GetValue (*list-for-runtime* "alct_user"  (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list")) '(text any)) "") '(any list any)  "lookup in pairs") "&lat=" (get-property 'lat 'Text) "&lon=" (get-property 'lon 'Text) ) '(text text text text text text ) "join"))(set-and-coerce-property! 'message 'Visible #t 'boolean)(set-and-coerce-property! 'message 'Text (get-var g$url) 'text)(set-and-coerce-property! 'Web1 'Url (get-var g$url) 'text)(call-component-method 'Web1 'Get (*list-for-runtime*) '()))))
+(def g$url "")
+(def (p$setFavEle )  (set-var! g$tmpHolding (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))(foreach $item (begin   ((get-var p$individualItemList) (lexical-value $item))) (get-var g$gFav))(set-and-coerce-property! 'lstFav 'Elements (get-var g$tmpHolding) 'list))
+(def g$tmpHolding (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def (p$setUnmatchedEle )  (set-var! g$tmpHolding (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))(foreach $item (begin   ((get-var p$individualItemList) (lexical-value $item))) (get-var g$gUnmatched))(set-and-coerce-property! 'lstUnMatched 'Elements (get-var g$tmpHolding) 'list))
+(def g$gFav (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def g$gBlocked (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def (p$individualItemList $input)  (let ( ($individualItemPushValue (call-component-method 'Web1 'JsonTextDecode (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_value" (lexical-value $input) "") '(any list any)  "lookup in pairs")) '(text)))  )   (call-yail-primitive yail-list-add-to-list! (*list-for-runtime* (get-var g$tmpHolding) (call-yail-primitive string-append (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "name" (lexical-value $input) "") '(any list any)  "lookup in pairs") "\nPoints: " (call-yail-primitive yail-alist-lookup (*list-for-runtime* "points" (lexical-value $input) "") '(any list any)  "lookup in pairs") ", Age: " (call-yail-primitive yail-alist-lookup (*list-for-runtime* "age" (lexical-value $input) "") '(any list any)  "lookup in pairs") ", Gender: " (call-yail-primitive yail-alist-lookup (*list-for-runtime* "gender" (lexical-value $individualItemPushValue) "") '(any list any)  "lookup in pairs") "\nDistance: " (call-yail-primitive yail-alist-lookup (*list-for-runtime* "distance" (lexical-value $input) "") '(any list any)  "lookup in pairs") " mi" "" ) '(text text text text text text text text text text text ) "join") ) '(list any ) "add items to list") ))
+(def g$gMatched (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def (p$setBrowseEle )  (set-var! g$tmpHolding (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))(foreach $item (begin   ((get-var p$individualItemList) (lexical-value $item))) (get-var g$gMatched))(set-and-coerce-property! 'lstBrowse 'Elements (get-var g$tmpHolding) 'list))
+(def g$gUnmatched (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))
+(def (p$setBlockedEle )  (set-var! g$tmpHolding (call-yail-primitive make-yail-list (*list-for-runtime* ) '() "make a list"))(foreach $item (begin   ((get-var p$individualItemList) (lexical-value $item))) (get-var g$gBlocked))(set-and-coerce-property! 'lstBlocked 'Elements (get-var g$tmpHolding) 'list))
+(def (p$showMatchedProfile )  ((get-var p$hideAll) )(set-and-coerce-property! 'btnMatch 'FontBold #t 'boolean)(if (call-yail-primitive > (*list-for-runtime* (call-yail-primitive yail-list-length (*list-for-runtime* (get-var g$gMatched) ) '(list) "length of list") 0) '(number number) ">") (begin   (set-and-coerce-property! 'message 'Visible #f 'boolean)(set-and-coerce-property! 'lstBrowse 'Visible #t 'boolean)) (begin   (set-and-coerce-property! 'message 'Text "No Matched Profile Found." 'text)(set-and-coerce-property! 'message 'Visible #t 'boolean))))
+(def (p$hideAll )  (set-and-coerce-property! 'lstBrowse 'Visible #f 'boolean)(set-and-coerce-property! 'lstUnMatched 'Visible #f 'boolean)(set-and-coerce-property! 'lstFav 'Visible #f 'boolean)(set-and-coerce-property! 'lstBlocked 'Visible #f 'boolean)(set-and-coerce-property! 'btnMatch 'FontBold #f 'boolean)(set-and-coerce-property! 'BtnNoMatch 'FontBold #f 'boolean)(set-and-coerce-property! 'btnFav 'FontBold #f 'boolean)(set-and-coerce-property! 'btnBlocked 'FontBold #f 'boolean))
+;;; Browse
+
+(do-after-form-creation (set-and-coerce-property! 'Browse 'Scrollable #f 'boolean)
+ (set-and-coerce-property! 'Browse 'Title "Browse" 'text)
+)
+
+(define-event Browse Initialize()(set-this-form)
+    (set-and-coerce-property! 'Clock1 'TimerEnabled #t 'boolean)(set-and-coerce-property! 'message 'Visible #t 'boolean)(set-and-coerce-property! 'message 'Text "Processing...." 'text))
+;;; HorizontalArrangement2
+
+(add-component Browse HorizontalArrangement HorizontalArrangement2 
+(set-and-coerce-property! 'HorizontalArrangement2 'Width -2 'number)
+
+)
+
+;;; btnBack
+
+(add-component HorizontalArrangement2 Button btnBack 
+(set-and-coerce-property! 'btnBack 'FontSize 11.0 'number)
+
+(set-and-coerce-property! 'btnBack 'Text "Back" 'text)
+
+(set-and-coerce-property! 'btnBack 'Width -2 'number)
+
+)
+
+(define-event btnBack Click()(set-this-form)
+    (call-yail-primitive close-screen (*list-for-runtime* ) '() "close screen"))
+;;; btnRefresh
+
+(add-component HorizontalArrangement2 Button btnRefresh 
+(set-and-coerce-property! 'btnRefresh 'FontSize 11.0 'number)
+
+(set-and-coerce-property! 'btnRefresh 'Text "Refresh" 'text)
+
+(set-and-coerce-property! 'btnRefresh 'Width -2 'number)
+
+)
+
+(define-event btnRefresh Click()(set-this-form)
+    ((get-var p$fetch) ))
+;;; HorizontalArrangement1
+
+(add-component Browse HorizontalArrangement HorizontalArrangement1 
+(set-and-coerce-property! 'HorizontalArrangement1 'Width -2 'number)
+
+)
+
+;;; btnMatch
+
+(add-component HorizontalArrangement1 Button btnMatch 
+(set-and-coerce-property! 'btnMatch 'FontSize 11 'number)
+
+(set-and-coerce-property! 'btnMatch 'Text "Match" 'text)
+
+(set-and-coerce-property! 'btnMatch 'Width -2 'number)
+
+)
+
+(define-event btnMatch Click()(set-this-form)
+    ((get-var p$showMatchedProfile) ))
+;;; BtnNoMatch
+
+(add-component HorizontalArrangement1 Button BtnNoMatch 
+(set-and-coerce-property! 'BtnNoMatch 'FontSize 11 'number)
+
+(set-and-coerce-property! 'BtnNoMatch 'Text "No Match" 'text)
+
+(set-and-coerce-property! 'BtnNoMatch 'Width -2 'number)
+
+)
+
+(define-event BtnNoMatch Click()(set-this-form)
+    ((get-var p$hideAll) )(set-and-coerce-property! 'BtnNoMatch 'FontBold #t 'boolean)(if (call-yail-primitive > (*list-for-runtime* (call-yail-primitive yail-list-length (*list-for-runtime* (get-var g$gUnmatched) ) '(list) "length of list") 0) '(number number) ">") (begin   (set-and-coerce-property! 'message 'Visible #f 'boolean)(set-and-coerce-property! 'lstUnMatched 'Visible #t 'boolean)) (begin   (set-and-coerce-property! 'message 'Text "No Unmatched Profile Found." 'text)(set-and-coerce-property! 'message 'Visible #t 'boolean))))
+;;; btnFav
+
+(add-component HorizontalArrangement1 Button btnFav 
+(set-and-coerce-property! 'btnFav 'FontSize 11 'number)
+
+(set-and-coerce-property! 'btnFav 'Text "Fav" 'text)
+
+)
+
+(define-event btnFav Click()(set-this-form)
+    ((get-var p$hideAll) )(set-and-coerce-property! 'btnFav 'FontBold #t 'boolean)(if (call-yail-primitive > (*list-for-runtime* (call-yail-primitive yail-list-length (*list-for-runtime* (get-var g$gFav) ) '(list) "length of list") 0) '(number number) ">") (begin   (set-and-coerce-property! 'message 'Visible #f 'boolean)(set-and-coerce-property! 'lstFav 'Visible #t 'boolean)) (begin   (set-and-coerce-property! 'message 'Text "No Fav Profile Found." 'text)(set-and-coerce-property! 'message 'Visible #t 'boolean))))
+;;; btnBlocked
+
+(add-component HorizontalArrangement1 Button btnBlocked 
+(set-and-coerce-property! 'btnBlocked 'FontSize 11 'number)
+
+(set-and-coerce-property! 'btnBlocked 'Text "Blocked" 'text)
+
+)
+
+(define-event btnBlocked Click()(set-this-form)
+    ((get-var p$hideAll) )(set-and-coerce-property! 'btnBlocked 'FontBold #t 'boolean)(if (call-yail-primitive > (*list-for-runtime* (call-yail-primitive yail-list-length (*list-for-runtime* (get-var g$gBlocked) ) '(list) "length of list") 0) '(number number) ">") (begin   (set-and-coerce-property! 'message 'Visible #f 'boolean)(set-and-coerce-property! 'lstBlocked 'Visible #t 'boolean)) (begin   (set-and-coerce-property! 'message 'Text "No Blocked Profile Found." 'text)(set-and-coerce-property! 'message 'Visible #t 'boolean))))
+;;; message
+
+(add-component Browse Label message 
+(set-and-coerce-property! 'message 'FontBold #t 'boolean)
+
+(set-and-coerce-property! 'message 'TextColor #xFFFF0000 'number)
+
+(set-and-coerce-property! 'message 'Visible #f 'boolean)
+
+(set-and-coerce-property! 'message 'Width -2 'number)
+
+)
+
+;;; lstBrowse
+
+(add-component Browse ListView lstBrowse 
+(set-and-coerce-property! 'lstBrowse 'Visible #f 'boolean)
+
+(set-and-coerce-property! 'lstBrowse 'Width -2 'number)
+
+(set-and-coerce-property! 'lstBrowse 'Height -2 'number)
+
+)
+
+(define-event lstBrowse AfterPicking()(set-this-form)
+    (call-yail-primitive open-another-screen-with-start-value (*list-for-runtime* "Detail" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_id" (call-yail-primitive yail-list-get-item (*list-for-runtime* (get-var g$gMatched) (get-property 'lstBrowse 'SelectionIndex)) '(list number) "select list item") "") '(any list any)  "lookup in pairs")) '(text any) "open another screen with start value"))
+;;; lstUnMatched
+
+(add-component Browse ListView lstUnMatched 
+(set-and-coerce-property! 'lstUnMatched 'Visible #f 'boolean)
+
+(set-and-coerce-property! 'lstUnMatched 'Width -2 'number)
+
+(set-and-coerce-property! 'lstUnMatched 'Height -2 'number)
+
+)
+
+(define-event lstUnMatched AfterPicking()(set-this-form)
+    (call-yail-primitive open-another-screen-with-start-value (*list-for-runtime* "Detail" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_id" (call-yail-primitive yail-list-get-item (*list-for-runtime* (get-var g$gUnmatched) (get-property 'lstBrowse 'SelectionIndex)) '(list number) "select list item") "") '(any list any)  "lookup in pairs")) '(text any) "open another screen with start value"))
+;;; lstFav
+
+(add-component Browse ListView lstFav 
+(set-and-coerce-property! 'lstFav 'Visible #f 'boolean)
+
+(set-and-coerce-property! 'lstFav 'Width -2 'number)
+
+(set-and-coerce-property! 'lstFav 'Height -2 'number)
+
+)
+
+(define-event lstFav AfterPicking()(set-this-form)
+    (call-yail-primitive open-another-screen-with-start-value (*list-for-runtime* "Detail" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_id" (call-yail-primitive yail-list-get-item (*list-for-runtime* (get-var g$gFav) (get-property 'lstBrowse 'SelectionIndex)) '(list number) "select list item") "") '(any list any)  "lookup in pairs")) '(text any) "open another screen with start value"))
+;;; lstBlocked
+
+(add-component Browse ListView lstBlocked 
+(set-and-coerce-property! 'lstBlocked 'Visible #f 'boolean)
+
+(set-and-coerce-property! 'lstBlocked 'Width -2 'number)
+
+(set-and-coerce-property! 'lstBlocked 'Height -2 'number)
+
+)
+
+(define-event lstBlocked AfterPicking()(set-this-form)
+    (call-yail-primitive open-another-screen-with-start-value (*list-for-runtime* "Detail" (call-yail-primitive yail-alist-lookup (*list-for-runtime* "push_id" (call-yail-primitive yail-list-get-item (*list-for-runtime* (get-var g$gBlocked) (get-property 'lstBrowse 'SelectionIndex)) '(list number) "select list item") "") '(any list any)  "lookup in pairs")) '(text any) "open another screen with start value"))
+;;; VerticalArrangement4
+
+(add-component Browse VerticalArrangement VerticalArrangement4 
+(set-and-coerce-property! 'VerticalArrangement4 'Visible #f 'boolean)
+
+(set-and-coerce-property! 'VerticalArrangement4 'Width -2 'number)
+
+)
+
+;;; WebViewer1
+
+(add-component VerticalArrangement4 WebViewer WebViewer1 
+(set-and-coerce-property! 'WebViewer1 'HomeUrl "http://world.mkgalaxy.com/api/maps/getLocationSingle.html" 'text)
+
+(set-and-coerce-property! 'WebViewer1 'PromptforPermission #f 'boolean)
+
+(set-and-coerce-property! 'WebViewer1 'UsesLocation #t 'boolean)
+
+)
+
+;;; lat
+
+(add-component VerticalArrangement4 Label lat 
+)
+
+;;; lon
+
+(add-component VerticalArrangement4 Label lon 
+)
+
+;;; Notifier1
+
+(add-component Browse Notifier Notifier1 
+)
+
+;;; Web1
+
+(add-component Browse Web Web1 
+)
+
+(define-event Web1 GotText($url $responseCode $responseType $responseContent)(set-this-form)
+    (let ( ($return (call-component-method 'Web1 'JsonTextDecode (*list-for-runtime* (lexical-value $responseContent)) '(text)))  )   (if (call-yail-primitive yail-equal? (*list-for-runtime* (call-yail-primitive yail-alist-lookup (*list-for-runtime* "success" (lexical-value $return) 0) '(any list any)  "lookup in pairs") 1) '(any any) "=") (begin   (set-var! g$gMatched (call-yail-primitive yail-alist-lookup (*list-for-runtime* "matched" (lexical-value $return) 0) '(any list any)  "lookup in pairs"))(set-var! g$gUnmatched (call-yail-primitive yail-alist-lookup (*list-for-runtime* "unmatched" (lexical-value $return) 0) '(any list any)  "lookup in pairs"))(set-var! g$gFav (call-yail-primitive yail-alist-lookup (*list-for-runtime* "fav" (lexical-value $return) 0) '(any list any)  "lookup in pairs"))(set-var! g$gBlocked (call-yail-primitive yail-alist-lookup (*list-for-runtime* "blocked" (lexical-value $return) 0) '(any list any)  "lookup in pairs"))((get-var p$setBrowseEle) )((get-var p$setUnmatchedEle) )((get-var p$setFavEle) )((get-var p$setBlockedEle) )((get-var p$showMatchedProfile) )) (begin   (call-component-method 'Notifier1 'ShowAlert (*list-for-runtime* "Error Occured. Try again later.") '(text)))) ))
+;;; TinyDB1
+
+(add-component Browse TinyDB TinyDB1 
+)
+
+;;; Clock1
+
+(add-component Browse Clock Clock1 
+)
+
+(define-event Clock1 Timer()(set-this-form)
+    (if (call-yail-primitive yail-not-equal? (*list-for-runtime* (get-property 'WebViewer1 'CurrentPageTitle) "Map") '(any any) "=") (begin   (let ( ($name (call-yail-primitive string-split (*list-for-runtime* (get-property 'WebViewer1 'CurrentPageTitle) "|") '(text text) "split"))  )   (set-and-coerce-property! 'lat 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $name) 1) '(list number) "select list item") 'text)(set-and-coerce-property! 'lon 'Text (call-yail-primitive yail-list-get-item (*list-for-runtime* (lexical-value $name) 2) '(list number) "select list item") 'text) )((get-var p$fetch) )(set-and-coerce-property! 'Clock1 'TimerEnabled #f 'boolean))))
+(init-runtime)
